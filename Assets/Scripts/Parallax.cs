@@ -19,7 +19,9 @@ public class Parallax : MonoBehaviour
         startPosition = transform.position.x;
         length = GetComponent<SpriteRenderer>().bounds.size.x + offest;
 
-        Debug.Log($"{gameObject.name} length: {length}");
+        cam = Camera.main.gameObject;
+
+        //Debug.Log($"{gameObject.name} length: {length}");
     }
 
     private void Update()

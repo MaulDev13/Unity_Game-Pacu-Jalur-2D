@@ -14,6 +14,6 @@ public class MovementAI : Movement
 
     protected override void CheckInput()
     {
-        //base.CheckInput();
+
     }
 }
