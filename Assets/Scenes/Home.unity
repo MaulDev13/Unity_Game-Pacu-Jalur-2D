@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7559a9350eae3594ba2d3abfa777b27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   movementSpeed: 2
   runSpeed: 7
   fastTurnSpeed: 2
@@ -246,6 +247,7 @@ MonoBehaviour:
   dayungPowerDegeneration: 1
   dayungPowerMinLimit: 0
   dayungPowerMaxLimit: 100
+  isStart: 1
   powerOn_Time: 0.5
   midTreshold: 20
   upperTreshold: 50
@@ -740,7 +742,7 @@ Transform:
   - {fileID: 39107865}
   - {fileID: 2011979669}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &323884457
 GameObject:
@@ -2367,7 +2369,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &945836397
 GameObject:
@@ -2464,7 +2466,7 @@ RectTransform:
   - {fileID: 670893374}
   - {fileID: 1339052313}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4020,7 +4022,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1479292925
 GameObject:
@@ -4872,7 +4874,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1969291080
 GameObject:
@@ -5907,7 +5909,7 @@ Transform:
   m_Children:
   - {fileID: 1018904648}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121580009
 GameObject:

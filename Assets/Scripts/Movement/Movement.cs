@@ -13,6 +13,8 @@ public class Movement : MonoBehaviour
     private float leftPower;
 
     [Header("Boat Stat")]
+    [SerializeField] private bool isPlayer = false;
+
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float runSpeed = 4f;
     [SerializeField] private float fastTurnSpeed = 2f;
@@ -30,12 +32,11 @@ public class Movement : MonoBehaviour
     private bool boostPowerOn = false;
     private bool isStunned = false;
     private bool isEnd = false;
+    public bool isStart = false;
     [SerializeField] private float powerOn_Time = 0.1f;
 
     [SerializeField] private float midTreshold = 20f;
     [SerializeField] private float upperTreshold = 50f;
-
-
 
     private void Start()
     {
@@ -44,6 +45,9 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (!isStart)
+            return;
+
         if (isEnd)
             return;
 
@@ -52,6 +56,9 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isStart)
+            return;
+
         if (isEnd)
         {
             ZeroPower();
@@ -233,7 +240,12 @@ public class Movement : MonoBehaviour
         if (isEnd)
             return;
 
-        isEnd = true;        
+        isEnd = true;
+        
+        if(isPlayer)
+        {
+            GameManager.instance.PlayerFinish();
+        }
     }
 
     private void AnimCheck()
