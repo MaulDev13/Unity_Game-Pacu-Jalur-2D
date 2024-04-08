@@ -84,6 +84,9 @@ public class Movement : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
 
+        ZeroPower();
+        AnimCheck();
+
         DayungPower(1f, 1f);
 
         //InvokeRepeating("OnDayungRight", 1f, 0.1f);

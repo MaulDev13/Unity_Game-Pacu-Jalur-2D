@@ -12,7 +12,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject countDownPanel;
     [SerializeField] private GameObject homeButton;
 
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject pauseButton;
+
     [SerializeField] private string homeSceneName = "Home";
+
+    private bool onPause;
 
     public static GameManager instance;
 
@@ -29,6 +34,9 @@ public class GameManager : MonoBehaviour
         countDownText.text = "";
         countDownPanel.SetActive(true);
         homeButton.SetActive(false);
+
+        pausePanel.SetActive(false);
+        pauseButton.SetActive(false);
 
         Invoke("StartTheGame", 1f);
     }
@@ -59,6 +67,9 @@ public class GameManager : MonoBehaviour
         {
             boat.isStart = true;
         }
+
+        yield return new WaitForSeconds(1f);
+        pauseButton.SetActive(true);
     }
 
     public void PlayerFinish()
@@ -70,6 +81,32 @@ public class GameManager : MonoBehaviour
 
     public void HomeScene()
     {
+        if (onPause)
+            Unpause();
+
         SceneManager.LoadScene(homeSceneName, LoadSceneMode.Single);
     }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+
+        onPause = true;
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = 1f;
+
+        onPause = false;
+    }
+
+    public void Restart()
+    {
+        if (onPause)
+            Unpause();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
 }
