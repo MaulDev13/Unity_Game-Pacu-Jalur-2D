@@ -255,7 +255,10 @@ public class Movement : MonoBehaviour
     {
         if(velocity == Vector2.zero)
         {
-            anim.SetBool("isMove", false);
+            if(isStunned)
+                anim.SetBool("isMove", true);
+            else
+                anim.SetBool("isMove", false);
         } else
         {
             anim.SetBool("isMove", true);

@@ -4577,8 +4577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  movementSpeed: 2.5
-  runSpeed: 4.5
+  movementSpeed: 1.9
+  runSpeed: 3.5
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   dayungPower: 20
@@ -4714,7 +4714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179056228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1, z: 0}
+  m_LocalPosition: {x: -2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4855,8 +4855,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  movementSpeed: 2.2
-  runSpeed: 4.4
+  movementSpeed: 1.6
+  runSpeed: 3.7
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   dayungPower: 10
@@ -4865,7 +4865,7 @@ MonoBehaviour:
   dayungPowerMaxLimit: 100
   isStart: 0
   powerOn_Time: 0.5
-  midTreshold: 20
+  midTreshold: 40
   upperTreshold: 80
 --- !u!61 &1264827671
 BoxCollider2D:
@@ -4973,7 +4973,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264827668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0.5, z: 0}
+  m_LocalPosition: {x: -1, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5013,8 +5013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  movementSpeed: 2.5
-  runSpeed: 4.5
+  movementSpeed: 1.8
+  runSpeed: 3.6
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   dayungPower: 20
@@ -5035,7 +5035,7 @@ Animator:
   m_GameObject: {fileID: 1279136323}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: a0485aeb221597b458680b846ab56aa4, type: 2}
+  m_Controller: {fileID: 22100000, guid: e8dad0b9b489d55408811256acf81129, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5061,7 +5061,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.4438889, y: 0.9785731}
+    oldSize: {x: 1.4443549, y: 0.9788889}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5131,7 +5131,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: fdf71c26a9db9db49b1e01618f3acf41, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25f6d104d1742244f861aab6a83831f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5150,7 +5150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279136323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -1, z: 0}
+  m_LocalPosition: {x: -2, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6646,8 +6646,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
-  movementSpeed: 2
-  runSpeed: 4
+  movementSpeed: 1.6
+  runSpeed: 3
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   dayungPower: 10
@@ -6764,7 +6764,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757939977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -0.5, z: 0}
+  m_LocalPosition: {x: -1, y: -0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

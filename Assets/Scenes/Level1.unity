@@ -3980,7 +3980,6 @@ GameObject:
   - component: {fileID: 1041795663}
   - component: {fileID: 1041795662}
   - component: {fileID: 1041795661}
-  - component: {fileID: 1041795660}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3988,31 +3987,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1041795660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041795659}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7559a9350eae3594ba2d3abfa777b27e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayer: 1
-  movementSpeed: 2
-  runSpeed: 4
-  fastTurnSpeed: 2
-  slowTurnSpeed: 1
-  dayungPower: 10
-  dayungPowerDegeneration: 1
-  dayungPowerMinLimit: 0
-  dayungPowerMaxLimit: 100
-  isStart: 0
-  powerOn_Time: 0.1
-  midTreshold: 20
-  upperTreshold: 50
 --- !u!114 &1041795661
 MonoBehaviour:
   m_ObjectHideFlags: 0
