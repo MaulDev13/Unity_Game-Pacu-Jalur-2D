@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Sebuah Item. Ketika bersentuhan akan membuat perahu menjadi stunned/terhenti sejenak.
+/// Sebuah Item. Ketika bersentuhan akan mengembalikan kesempatan boost kepada perahu.
 /// </summary>
 
-public class IObstacle : Item
+public class IBoost : Item
 {
-    [SerializeField] float time = 1f;
-
     public override void Acive(Movement collision)
     {
         coll2d.enabled = false;
         spriteRenderer.enabled = false;
 
-        collision.GetStunned(time);
+        collision.GetBoost();
     }
 }

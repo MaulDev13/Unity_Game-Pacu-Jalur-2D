@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Backward : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] float speed = 1f;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.left, speed * Time.deltaTime);
     }
 }

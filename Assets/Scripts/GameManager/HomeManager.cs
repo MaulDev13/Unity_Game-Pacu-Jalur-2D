@@ -1,17 +1,28 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Local game manager yang digunakan pada scene home/beranda.
+/// </summary>
+
 public class HomeManager : MonoBehaviour
 {
+    [Header("Sync")]
+    [Tooltip("Nama scene - level 1")]
     [SerializeField] private string sceneName_Level1 = "Level1";
+    [Tooltip("Nama scene - level 2")]
     [SerializeField] private string sceneName_Level2 = "Level2";
+    [Tooltip("Nama scene - level 2")]
     [SerializeField] private string sceneName_Level3 = "Level3";
 
+    // Button Exit
     public void OnButtonExit()
     {
-
+        // Tidak berfungsi ketika run di editor
+        Application.Quit();
     }
 
+    // Scene manager. Change to corresponding level scene.
     public void OnButtonLevel(int value)
     {
         switch (value)

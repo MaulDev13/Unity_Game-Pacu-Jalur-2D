@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Item. Merupakan gameobject yang akan aktif ketika bersentuhan dengan perahu/boat dalam permainan.
+/// </summary>
 public class Item : MonoBehaviour
 {
     protected Rigidbody2D rb2d;

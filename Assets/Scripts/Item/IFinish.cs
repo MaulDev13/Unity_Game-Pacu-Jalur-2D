@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Sebuah Item. Ketika bersentuhan akan membuat perahu menyelesaikan permainan.
+/// </summary>
 public class IFinish : Item
 {
     Movement boat;

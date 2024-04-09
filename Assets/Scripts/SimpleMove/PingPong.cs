@@ -8,6 +8,8 @@ public class PingPong : MonoBehaviour
     [SerializeField] private float speed = 2f;
     private float yCenter = 0f;
 
+    [SerializeField] private bool isBackward = false;
+
 
     private void Start()
     {
@@ -16,7 +18,9 @@ public class PingPong : MonoBehaviour
 
     private void Update()
     {
-        //transform.position = new Vector3(transform.position.x, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z), speed * Time.deltaTime);
+        if(!isBackward)
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z), speed * Time.deltaTime);
+        else
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x-1, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z), speed * Time.deltaTime);
     }
 }

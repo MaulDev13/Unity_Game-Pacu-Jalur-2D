@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Movement system yang digunakan. Ini dibuat dengan User Input sebagai acuan
+/// </summary>
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rb2d;
@@ -12,31 +15,64 @@ public class Movement : MonoBehaviour
     private float rightPower;
     private float leftPower;
 
+    public delegate void OnEvent();
+    public OnEvent OnTriggerBoost;
+
     [Header("Boat Stat")]
+    [Tooltip("Apakah boat ini yang digunakan oleh player?")]
     [SerializeField] private bool isPlayer = false;
 
+    [Tooltip("Speed yang digunakan ketika idle/tidak mendayung atau dayungPower (kekuatan mendayung) kurang dari mid treshold.")]
+    [SerializeField] private float idleSpeed = 0.2f;
+    [Tooltip("Speed yang digunakan ketika dayungPower (kekuatan mendayung) lebih besar dari mid treshold tetapi kurang dari upper treshold.")]
     [SerializeField] private float movementSpeed = 2f;
+    [Tooltip("Speed yang digunakan ketika dayungPower (kekuatan mendayung) lebih besar dari upper treshold.")]
     [SerializeField] private float runSpeed = 4f;
+    [Tooltip("Speed yang digunakan ketika akan berbelok dan dayungPower (kekuatan mendayung) lebih besar dari mid treshold tetapi kurang dari upper treshold.")]
     [SerializeField] private float fastTurnSpeed = 2f;
+    [Tooltip("Speed yang digunakan ketika akan berbelok dan dayungPower (kekuatan mendayung) lebih kecil dari mid treshold.")]
     [SerializeField] private float slowTurnSpeed = 1f;
+    [Tooltip("Speed boost multiplier. speed * boostSpeedMultiplier.")]
+    [SerializeField] private float boostSpeedMultiplier = 4f;
+    private float debuffSpeed = 0f;
     private float currentSpeed = 0f;
 
+    [Tooltip("Nilai peningkatan kekuatan mendayung setiap dayungan.")]
     [SerializeField] private float dayungPower = 10f;
+    [Tooltip("Nilai pengurangan kekuatan mendayung ketika tidak didayung. Perubahan ini terjadi setelah rentang waktu powerOn_Time berakhir.")]
     [SerializeField] private float dayungPowerDegeneration = 1f;
 
+    [Tooltip("Batas minimum dari rentang dayungPower (kekuatan mendayung).")]
     [SerializeField] private float dayungPowerMinLimit = 0f;
+    [Tooltip("Batas maximum dari rentang dayungPower (kekuatan mendayung).")]
     [SerializeField] private float dayungPowerMaxLimit = 100f;
 
     private bool rightPowerOn = false;
     private bool leftPowerOn = false;
+
     private bool boostPowerOn = false;
+    [Tooltip("Dapat menggunakan boost ketika avaliable = true.")]
+    [SerializeField] private bool isBoostAvaliable = false;
+    public bool IsBoostAvaliable => isBoostAvaliable;
+
+    [Tooltip("Lama boost akan aktif.")]
+    [SerializeField] private float boostTime = 3f;
+    private float currentBoostTime = 0f;
+
     private bool isStunned = false;
+
+    private float currentSlowTime = 0f;
+
     private bool isEnd = false;
     public bool isStart = false;
+    [Tooltip("Rentang waktu untuk dayungPowerDegeneration aktif setelah melakukan dayung.")]
     [SerializeField] private float powerOn_Time = 0.1f;
 
+    [Tooltip("Batas tengah supaya perahu dapat bergerak.")]
     [SerializeField] private float midTreshold = 20f;
+    [Tooltip("Batas atas supaya perahu dapat bergerak.")]
     [SerializeField] private float upperTreshold = 50f;
+
 
     private void Start()
     {
@@ -51,7 +87,8 @@ public class Movement : MonoBehaviour
         if (isEnd)
             return;
 
-        CheckInput();
+        InputCheck();
+        TimeCheck();
     }
 
     private void FixedUpdate()
@@ -88,12 +125,9 @@ public class Movement : MonoBehaviour
         AnimCheck();
 
         DayungPower(1f, 1f);
-
-        //InvokeRepeating("OnDayungRight", 1f, 0.1f);
-        //InvokeRepeating("OnDayungLeft", 1f, 0.1f);
     }
 
-    protected virtual void CheckInput()
+    protected virtual void InputCheck()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -112,16 +146,19 @@ public class Movement : MonoBehaviour
         }
     }
 
+    // Get velocity of the boat depending on rightPower and leftPower
     void Velocity()
     {
-        // Not move
-        if(rightPower <= midTreshold && leftPower <= midTreshold)
+        //velocity = Vector2.zero;
+
+        // Not move / Slow move
+        if (rightPower <= midTreshold && leftPower <= midTreshold)
         {
-            velocity = Vector2.zero;
-            currentSpeed = 0f;
+            velocity = Vector2.right;
+            currentSpeed = idleSpeed;
         }
         // Slightly turn left
-        else if(rightPower <= midTreshold && leftPower > midTreshold)
+        else if (rightPower <= midTreshold && leftPower > midTreshold)
         {
             velocity = new Vector2(1, -1).normalized;
             currentSpeed = slowTurnSpeed;
@@ -133,7 +170,7 @@ public class Movement : MonoBehaviour
             currentSpeed = slowTurnSpeed;
         }
         // Move
-        else if(rightPower > midTreshold && leftPower > midTreshold && (rightPower <= upperTreshold && leftPower <= upperTreshold))
+        else if (rightPower > midTreshold && leftPower > midTreshold && (rightPower <= upperTreshold && leftPower <= upperTreshold))
         {
             velocity = Vector2.right;
             currentSpeed = movementSpeed;
@@ -160,8 +197,14 @@ public class Movement : MonoBehaviour
 
     void Move()
     {
+        currentSpeed = Mathf.Clamp(currentSpeed, idleSpeed, 99f);
+
         if (boostPowerOn)
-            currentSpeed *= 2;
+            currentSpeed *= boostSpeedMultiplier;
+        else
+            currentSpeed = Mathf.Clamp(currentSpeed - debuffSpeed, idleSpeed, 99f);
+
+        //Debug.Log($"Speed = {currentSpeed}, boost on = {boostPowerOn}");
 
         rb2d.MovePosition(rb2d.position + (velocity * currentSpeed) * Time.fixedDeltaTime);
 
@@ -170,6 +213,7 @@ public class Movement : MonoBehaviour
         DayungPower(tmpRight, tmpLeft);
     }
 
+    // Merubah kekuatan dayung power secara instan
     void DayungPower(float right, float left)
     {
         rightPower = right;
@@ -179,12 +223,14 @@ public class Movement : MonoBehaviour
         leftPower = Mathf.Clamp(left, dayungPowerMinLimit, dayungPowerMaxLimit);
     }
 
+    // Merubah kekuatan dayung power dan velocity menjadi 0 secara instan. Menghentikan perahu secara instan.
     void ZeroPower()
     {
         velocity = Vector2.zero;
         currentSpeed = 0f;
     }
 
+    // Kekuatan dayung kanan. Aktif pada button untuk player input.
     public void OnDayungRight()
     {
         rightPower += dayungPower;
@@ -193,6 +239,7 @@ public class Movement : MonoBehaviour
         StartCoroutine(HoldPowerRight());
     }
 
+    // Kekuatan dayung kiri. Aktif pada button untuk player input.
     public void OnDayungLeft()
     {
         leftPower += dayungPower;
@@ -201,6 +248,7 @@ public class Movement : MonoBehaviour
         StartCoroutine(HoldPowerLeft());
     }
 
+    // Time check untuk dayung kanan sehingga tidak terjadi degenerasi kekuatan
     IEnumerator HoldPowerRight()
     {
         rightPowerOn = true;
@@ -210,6 +258,7 @@ public class Movement : MonoBehaviour
         rightPowerOn = false;
     }
 
+    // Time check untuk dayung kiri sehingga tidak terjadi degenerasi kekuatan
     IEnumerator HoldPowerLeft()
     {
         leftPowerOn = true;
@@ -219,14 +268,82 @@ public class Movement : MonoBehaviour
         leftPowerOn = false;
     }
 
+    // Untuk mengaktifkan boost. Button input.
+    public void TriggerBoost()
+    {
+        if (!isBoostAvaliable)
+            return;
+
+
+        isBoostAvaliable = false;
+        boostPowerOn = true;
+        currentBoostTime += boostTime;
+
+        if (OnTriggerBoost != null)
+            OnTriggerBoost();
+
+        Debug.Log($"Boost On = {boostPowerOn}");
+    }
+
+    public void GetBoost()
+    {
+        isBoostAvaliable = true;
+
+        if (OnTriggerBoost != null)
+            OnTriggerBoost();
+    }
+
+    private void TimeCheck()
+    {
+        // Boost power time check
+        if(currentBoostTime > 0f)
+        {
+            currentBoostTime -= Time.deltaTime;
+        }
+        else
+        {
+            if(boostPowerOn)
+            {
+                boostPowerOn = false;
+            }
+
+            currentBoostTime = 0f;
+        }
+
+        // Slow check
+        if(!boostPowerOn)
+        {
+            if(currentSlowTime > 0f)
+            {
+                currentSlowTime -= Time.deltaTime;
+            }
+            else
+            {
+                debuffSpeed = 0f;
+                currentSlowTime = 0f;
+            }
+        }
+        else
+        {
+            debuffSpeed = 0f;
+            currentSlowTime = 0f;
+        }
+    }
+
     public void GetStunned(float time)
     {
-        if (isStunned)
+        if (isStunned || boostPowerOn)
             return;
 
         DayungPower(1f, 1f);
         ZeroPower();
         StartCoroutine(StunnedCount(time));
+    }
+
+    public void GetDebuff(float _time, float _debuffSpeed)
+    {
+        currentSlowTime = _time;
+        debuffSpeed = _debuffSpeed;
     }
 
     IEnumerator StunnedCount(float time)
@@ -238,6 +355,7 @@ public class Movement : MonoBehaviour
         isStunned = false;
     }
 
+    // Item IFinish
     public void GetEnd()
     {
         if (isEnd)
@@ -275,7 +393,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // It will be for olayer/other boat
+    // It will be for player/other boat collision
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
