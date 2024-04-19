@@ -15,6 +15,9 @@ public class HomeManager : MonoBehaviour
     [Tooltip("Nama scene - level 2")]
     [SerializeField] private string sceneName_Level3 = "Level3";
 
+    [SerializeField] private GameObject ceklisBGM;
+    [SerializeField] private GameObject ceklisSFX;
+
     // Button Exit
     public void OnButtonExit()
     {
@@ -40,5 +43,16 @@ public class HomeManager : MonoBehaviour
                 Debug.Log($"No level {value}!");
                 break;
         }
+    }
+
+    public void OnButtonBGM()
+    {
+        ceklisBGM.SetActive(!ceklisBGM.activeInHierarchy);
+
+    }
+
+    public void OnButtonSFX()
+    {
+        ceklisSFX.SetActive(!ceklisSFX.activeInHierarchy);
     }
 }
