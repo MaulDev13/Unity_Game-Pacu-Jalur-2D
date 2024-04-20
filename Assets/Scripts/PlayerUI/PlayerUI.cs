@@ -5,6 +5,7 @@ public class PlayerUI : MonoBehaviour
 {
     [Header("Sync")]
     [SerializeField] private TextMeshProUGUI boostTxt;
+    [SerializeField] private TextMeshProUGUI boatPositionTxt;
 
     private Movement myBoat;
 
@@ -12,14 +13,33 @@ public class PlayerUI : MonoBehaviour
     {
         myBoat = GetComponent<Movement>();
 
-        myBoat.OnTriggerBoost += BoostUI;
+        if (boostTxt != null)
+        {
+            myBoat.OnTriggerBoost += BoostUI;
 
-        BoostUI();
+            BoostUI();
+        }
+
+        if (boatPositionTxt != null)
+        {
+            myBoat.OnRankingChange += RankingUI;
+
+            RankingUI();
+        }
+    }
+
+    void RankingUI()
+    {
+        boatPositionTxt.text = $"#{myBoat.ranking}".ToString();
     }
 
     private void OnDisable()
     {
-        myBoat.OnTriggerBoost -= BoostUI;
+        if (boostTxt != null)
+            myBoat.OnTriggerBoost -= BoostUI;
+
+        if (boatPositionTxt != null)
+            myBoat.OnRankingChange -= RankingUI;
     }
 
     void BoostUI()

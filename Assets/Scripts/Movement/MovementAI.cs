@@ -14,16 +14,29 @@ public class MovementAI : Movement
     [Tooltip("Waktu pengulangan untuk menggerakkan dayung kiri.")]
     [SerializeField] private float dayungLeft_repeatingTime = 0.2f;
 
+    private void OnDisable()
+    {
+        OnFinishLine-=DisableDayung;
+    }
+
     protected override void Init()
     {
         base.Init();
 
         InvokeRepeating("OnDayungRight", 1f, dayungRight_repeatingTime);
         InvokeRepeating("OnDayungLeft", 1f, dayungLeft_repeatingTime);
+
+        OnFinishLine += DisableDayung;
     }
 
     protected override void InputCheck()
     {
 
+    }
+
+    void DisableDayung()
+    {
+        CancelInvoke("OnDayungRight");
+        CancelInvoke("OnDayungLeft");
     }
 }

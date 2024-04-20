@@ -17,6 +17,8 @@ public class Movement : MonoBehaviour
 
     public delegate void OnEvent();
     public OnEvent OnTriggerBoost;
+    public OnEvent OnRankingChange;
+    public OnEvent OnFinishLine;
 
     [Header("Boat Stat")]
     [Tooltip("Apakah boat ini yang digunakan oleh player?")]
@@ -63,7 +65,9 @@ public class Movement : MonoBehaviour
 
     private float currentSlowTime = 0f;
 
-    private bool isEnd = false;
+    [HideInInspector] public int ranking = 0;
+
+    [HideInInspector] private bool isEnd = false;
     public bool isStart = false;
     [Tooltip("Rentang waktu untuk dayungPowerDegeneration aktif setelah melakukan dayung.")]
     [SerializeField] private float powerOn_Time = 0.1f;
@@ -81,6 +85,8 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        Ranking();
+
         if (!isStart)
             return;
 
@@ -362,11 +368,14 @@ public class Movement : MonoBehaviour
             return;
 
         isEnd = true;
-        
-        if(isPlayer)
+
+        if (isPlayer)
         {
-            GameManager.instance.PlayerFinish();
+            GameManager.instance.PlayerFinish(ranking);
         }
+
+        if (OnFinishLine != null)
+            OnFinishLine();
     }
 
     private void AnimCheck()
@@ -382,7 +391,36 @@ public class Movement : MonoBehaviour
             anim.SetBool("isMove", true);
         }
     }
-         
+
+    void Ranking()
+    {
+        if (isEnd)
+            return;
+
+        int tmpRanking = 1;
+
+        // Check ranking
+        foreach (Movement boat in GameManager.instance.boats)
+        {
+            if (boat != this)
+            {
+                if (boat.transform.position.x >= this.transform.position.x)
+                {
+                    tmpRanking++;
+                }
+            }
+        }
+
+        // Event trigger
+        if(tmpRanking != ranking)
+        {
+            ranking = tmpRanking;
+
+            if (OnRankingChange != null)
+                OnRankingChange();
+        }
+    }
+
     // It will be for item
     protected void OnTriggerEnter2D(Collider2D collision)
     {
