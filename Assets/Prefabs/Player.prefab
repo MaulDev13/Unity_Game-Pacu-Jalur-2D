@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 8556059054277961437}
   - component: {fileID: 8556059054277961410}
   - component: {fileID: 8556059054277961411}
-  - component: {fileID: 8556059054277961408}
   - component: {fileID: 4449591025472846218}
+  - component: {fileID: 3508093252400395407}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -236,35 +236,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8556059054277961408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8556059054277961414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68523c768803a9c4198cf8571b6d74e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayer: 1
-  idleSpeed: 0.2
-  movementSpeed: 2
-  runSpeed: 4
-  fastTurnSpeed: 2
-  slowTurnSpeed: 1
-  boostSpeedMultiplier: 2
-  dayungPower: 10
-  dayungPowerDegeneration: 1
-  dayungPowerMinLimit: 0
-  dayungPowerMaxLimit: 100
-  isBoostAvaliable: 1
-  boostTime: 3
-  isStart: 0
-  powerOn_Time: 0.1
-  midTreshold: 20
-  upperTreshold: 50
 --- !u!114 &4449591025472846218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,3 +249,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostTxt: {fileID: 0}
+  boatPositionTxt: {fileID: 0}
+--- !u!114 &3508093252400395407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8556059054277961414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41aaeabf91280fe47af541e941740114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 1
+  idleSpeed: 0.2
+  movementSpeed: 2
+  runSpeed: 4
+  fastTurnSpeed: 3
+  slowTurnSpeed: 2
+  boostSpeedMultiplier: 4
+  isBoostAvaliable: 0
+  boostTime: 3
+  ranking: 0
+  isStart: 0
+  dayungPower: 10
+  dayungPowerDegeneration: 1
+  dayungPowerMinLimit: 0
+  dayungPowerMaxLimit: 22
+  powerOn_Time: 0.1
+  midTreshold: 10
+  upperTreshold: 20

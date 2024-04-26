@@ -8,35 +8,36 @@ using UnityEngine;
 
 public class MovementAI : Movement
 {
-    [Header("Movement AI 1")]
-    [Tooltip("Waktu pengulangan untuk menggerakkan dayung kanan.")]
-    [SerializeField] private float dayungRight_repeatingTime = 0.2f;
-    [Tooltip("Waktu pengulangan untuk menggerakkan dayung kiri.")]
-    [SerializeField] private float dayungLeft_repeatingTime = 0.2f;
+    [Header("Pingpong Movement")]
+    [SerializeField] private float hight = 1.2f;
+    [SerializeField] private bool isOnYCenter = true;
+    [SerializeField] private float yCenter = 0f;
 
-    private void OnDisable()
-    {
-        OnFinishLine-=DisableDayung;
-    }
 
     protected override void Init()
     {
         base.Init();
 
-        InvokeRepeating("OnDayungRight", 1f, dayungRight_repeatingTime);
-        InvokeRepeating("OnDayungLeft", 1f, dayungLeft_repeatingTime);
+        isPlayer = false;
 
-        OnFinishLine += DisableDayung;
+        if(isOnYCenter)
+        {
+            yCenter = transform.position.y;
+        }
+
+
+        AnimCheck();
     }
 
-    protected override void InputCheck()
+    protected override void Move()
     {
+        currentSpeed = Random.Range(movementSpeed, runSpeed);
 
-    }
+        if (boostPowerOn)
+            currentSpeed *= boostSpeedMultiplier;
+        else
+            currentSpeed = Mathf.Clamp(currentSpeed - debuffSpeed, idleSpeed, 99f);
 
-    void DisableDayung()
-    {
-        CancelInvoke("OnDayungRight");
-        CancelInvoke("OnDayungLeft");
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x + 1f, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z), currentSpeed * Time.deltaTime); ;
     }
 }

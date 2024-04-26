@@ -285,17 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 2
   debuffSpeed: 2
---- !u!114 &70128816 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8556059054277961408, guid: 0750b0e1d3cfe494eb72bce1c192117b, type: 3}
-  m_PrefabInstance: {fileID: 953318636}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68523c768803a9c4198cf8571b6d74e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &70128821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8556059054277961439, guid: 0750b0e1d3cfe494eb72bce1c192117b, type: 3}
@@ -540,7 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boats:
-  - {fileID: 70128816}
+  - {fileID: 1495999170}
   - {fileID: 1264827670}
   - {fileID: 1757939979}
   - {fileID: 1279136324}
@@ -2211,8 +2200,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 70128816}
-        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+      - m_Target: {fileID: 1495999170}
+        m_TargetAssemblyTypeName: MovementUser, Assembly-CSharp
         m_MethodName: OnDayungRight
         m_Mode: 1
         m_Arguments:
@@ -3729,8 +3718,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 70128816}
-        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+      - m_Target: {fileID: 1495999170}
+        m_TargetAssemblyTypeName: MovementUser, Assembly-CSharp
         m_MethodName: OnDayungLeft
         m_Mode: 1
         m_Arguments:
@@ -4315,7 +4304,7 @@ Transform:
   m_GameObject: {fileID: 1167094514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 568130744}
   m_RootOrder: 7
@@ -4493,19 +4482,19 @@ MonoBehaviour:
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   boostSpeedMultiplier: 4
-  dayungPower: 20
-  dayungPowerDegeneration: 2
-  dayungPowerMinLimit: 0
-  dayungPowerMaxLimit: 100
   isBoostAvaliable: 0
   boostTime: 3
   ranking: 0
   isStart: 0
+  dayungPower: 10
+  dayungPowerDegeneration: 5
+  dayungPowerMinLimit: 0
+  dayungPowerMaxLimit: 100
   powerOn_Time: 1
   midTreshold: 20
-  upperTreshold: 80
+  upperTreshold: 30
   maxRandomRange: 100
-  chanceIndex: 50
+  chanceIndex: 20
 --- !u!95 &1179056230
 Animator:
   serializedVersion: 3
@@ -4802,7 +4791,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 70128816}
+      - m_Target: {fileID: 1495999170}
         m_TargetAssemblyTypeName: Movement, Assembly-CSharp
         m_MethodName: TriggerBoost
         m_Mode: 1
@@ -4911,19 +4900,13 @@ MonoBehaviour:
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   boostSpeedMultiplier: 4
-  dayungPower: 10
-  dayungPowerDegeneration: 2
-  dayungPowerMinLimit: 0
-  dayungPowerMaxLimit: 100
   isBoostAvaliable: 0
   boostTime: 3
   ranking: 0
   isStart: 0
-  powerOn_Time: 0.5
-  midTreshold: 40
-  upperTreshold: 80
-  dayungRight_repeatingTime: 0.2
-  dayungLeft_repeatingTime: 0.2
+  hight: 2
+  isOnYCenter: 0
+  yCenter: 0
 --- !u!61 &1264827671
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5180,19 +5163,19 @@ MonoBehaviour:
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   boostSpeedMultiplier: 4
-  dayungPower: 20
-  dayungPowerDegeneration: 2
-  dayungPowerMinLimit: 0
-  dayungPowerMaxLimit: 100
   isBoostAvaliable: 0
   boostTime: 3
   ranking: 0
   isStart: 0
+  dayungPower: 10
+  dayungPowerDegeneration: 5
+  dayungPowerMinLimit: 0
+  dayungPowerMaxLimit: 100
   powerOn_Time: 1
   midTreshold: 20
-  upperTreshold: 80
+  upperTreshold: 40
   maxRandomRange: 100
-  chanceIndex: 50
+  chanceIndex: 20
 --- !u!95 &1279136325
 Animator:
   serializedVersion: 3
@@ -5587,7 +5570,7 @@ Transform:
   m_GameObject: {fileID: 1335914253}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 60, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 568130744}
   m_RootOrder: 6
@@ -5616,7 +5599,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 11}
   m_EdgeRadius: 0
 --- !u!50 &1335914256
 Rigidbody2D:
@@ -6362,6 +6345,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492106233}
   m_CullTransparentMesh: 1
+--- !u!114 &1495999170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3508093252400395407, guid: 0750b0e1d3cfe494eb72bce1c192117b, type: 3}
+  m_PrefabInstance: {fileID: 953318636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41aaeabf91280fe47af541e941740114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1568638571
 GameObject:
   m_ObjectHideFlags: 0
@@ -6817,19 +6811,13 @@ MonoBehaviour:
   fastTurnSpeed: 2
   slowTurnSpeed: 1
   boostSpeedMultiplier: 4
-  dayungPower: 10
-  dayungPowerDegeneration: 1
-  dayungPowerMinLimit: 0
-  dayungPowerMaxLimit: 100
   isBoostAvaliable: 0
   boostTime: 3
   ranking: 0
   isStart: 0
-  powerOn_Time: 0.5
-  midTreshold: 20
-  upperTreshold: 50
-  dayungRight_repeatingTime: 0.2
-  dayungLeft_repeatingTime: 0.2
+  hight: 1.2
+  isOnYCenter: 1
+  yCenter: 0
 --- !u!61 &1757939980
 BoxCollider2D:
   m_ObjectHideFlags: 0
