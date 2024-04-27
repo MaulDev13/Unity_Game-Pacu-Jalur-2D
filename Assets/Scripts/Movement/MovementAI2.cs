@@ -14,6 +14,29 @@ public class MovementAI2 : MovementUser
     [Tooltip("Nilai tengah yang digunakan untuk menghitung kesempatan perahu berhasil. Ex: [chanceIndex]/[maxRandomRange] atau [50]/[100]")]
     [SerializeField] private int chanceIndex = 40;
 
+    protected override void FixedUpdate()
+    {
+        if (!isStart)
+            return;
+
+        if (isEnd)
+        {
+            Move();
+            AnimCheck();
+            return;
+        }
+
+        if (isStunned)
+        {
+            AnimCheck();
+            return;
+        }
+
+        Velocity();
+        Move();
+        AnimCheck();
+    }
+
     protected override void Init()
     {
         base.Init();
@@ -28,7 +51,8 @@ public class MovementAI2 : MovementUser
 
     protected override void InputCheck()
     {
-        DayungAI();
+        if(!isEnd || (isEnd && isMoveAfterEnd))
+            DayungAI();
     }
 
     private void DayungAI()

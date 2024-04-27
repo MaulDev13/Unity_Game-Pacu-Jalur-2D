@@ -4,23 +4,39 @@ using UnityEngine;
 
 public class PingPong : MonoBehaviour
 {
-    [SerializeField] private float hight = 1.2f;
+    [SerializeField] private float range = 1.2f;
     [SerializeField] private float speed = 2f;
-    private float yCenter = 0f;
+    [SerializeField] private bool isOnYCenter = true;
+    [SerializeField] private float yCenter = 0f;
 
-    [SerializeField] private bool isBackward = false;
+    [SerializeField] private bool isAnimFlip = false;
 
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
-        yCenter = transform.position.y;
+        if (isOnYCenter)
+        {
+            yCenter = transform.position.y;
+        }
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-        if(!isBackward)
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z), speed * Time.deltaTime);
-        else
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x-1, yCenter + Mathf.PingPong(Time.time * 2, hight) - hight / 2f, transform.position.z), speed * Time.deltaTime);
+        var currentVelocity = yCenter + Mathf.PingPong(Time.time * 2, range) - (range / 2);
+        
+        if(isAnimFlip)
+        {
+            var dir = currentVelocity - transform.position.y;
+            if (dir >= 0)
+                spriteRenderer.flipY = false;
+            else
+                spriteRenderer.flipY = true;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, currentVelocity, transform.position.z), speed * Time.deltaTime);
+
     }
 }

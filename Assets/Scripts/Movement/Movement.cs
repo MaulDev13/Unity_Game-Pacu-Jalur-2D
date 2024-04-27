@@ -51,6 +51,7 @@ public class Movement : MonoBehaviour
 
     [HideInInspector] public int ranking = 0;
 
+    [SerializeField] protected bool isMoveAfterEnd = true;
     [HideInInspector] protected bool isEnd = false;
     public bool isStart = false;
 
@@ -72,8 +73,17 @@ public class Movement : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (!isStart || isEnd)
+        if (!isStart)
             return;
+
+        if (isEnd)
+        {
+            if(isMoveAfterEnd)
+                Move();
+
+            AnimCheck();
+            return;
+        }
             
         if (isStunned)
         {

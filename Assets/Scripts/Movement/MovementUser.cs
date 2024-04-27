@@ -29,10 +29,24 @@ public class MovementUser : Movement
     [Tooltip("Batas atas supaya perahu dapat bergerak.")]
     [SerializeField] private float upperTreshold = 50f;
 
+    [SerializeField] private bool isAutoMove;
+    [SerializeField] private float timeCheck = 0f;
+    private float currentTime = 0f;
+
     protected override void FixedUpdate()
     {
         if (!isStart || isEnd)
             return;
+
+        if(currentTime > timeCheck)
+        {
+            isStart = false;
+            Debug.Log("End Turn");
+        }
+        else
+        {
+            currentTime += Time.fixedDeltaTime;
+        }
 
         if (isEnd)
         {
@@ -67,20 +81,28 @@ public class MovementUser : Movement
 
     protected override void InputCheck()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            OnDayungLeft();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            OnDayungRight();
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
+        if(isAutoMove)
         {
             OnDayungRight();
             OnDayungLeft();
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                OnDayungLeft();
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                OnDayungRight();
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                OnDayungRight();
+                OnDayungLeft();
+            }
         }
     }
 
